@@ -5,6 +5,6 @@
     <item
         android:id="@+id/item_back"
         android:icon="@android:drawable/ic_menu_close_clear_cancel"
-        android:title="@string/menu_addPlacemark"
+        android:title="@string/menu_addRecipe"
         app:showAsAction="always" />
 </menu>

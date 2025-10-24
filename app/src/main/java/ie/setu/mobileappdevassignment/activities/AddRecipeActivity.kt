@@ -1,28 +1,27 @@
 package ie.setu.mobileappdevassignment.activities
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
-import ie.setu.mobileappdevassignment.databinding.ActivityAssignmentBinding
+import ie.setu.mobileappdevassignment.databinding.ActivityAddRecipeBinding
 import ie.setu.mobileappdevassignment.main.MainApp
-import ie.setu.mobileappdevassignment.models.PlacemarkModel
+import ie.setu.mobileappdevassignment.models.RecipeModel
 import timber.log.Timber.i
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.result.contract.ActivityResultContracts
 import ie.setu.mobileappdevassignment.R
 
-class AssignmentActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityAssignmentBinding
-    var placemark = PlacemarkModel()
+class AddRecipeActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityAddRecipeBinding
+    var recipe = RecipeModel()
 
     lateinit var app : MainApp
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityAssignmentBinding.inflate(layoutInflater)
+        binding = ActivityAddRecipeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.toolbarAdd.title = title
@@ -31,14 +30,14 @@ class AssignmentActivity : AppCompatActivity() {
         app = application as MainApp
 
         binding.btnAdd.setOnClickListener() {
-            placemark.title = binding.placemarkTitle.text.toString()
-            placemark.description = binding.placemarkDescription.text.toString()
-            if (placemark.title.isNotEmpty() && placemark.description.isNotEmpty()) {
-                app.placemarks.add(placemark.copy())
-                i("add Button Pressed: " + placemark.title + ", " + placemark.description)
+            recipe.title = binding.recipeTitle.text.toString()
+            recipe.description = binding.recipeDescription.text.toString()
+            if (recipe.title.isNotEmpty() && recipe.description.isNotEmpty()) {
+                app.recipes.add(recipe.copy())
+                i("add Button Pressed: " + recipe.title + ", " + recipe.description)
                 i("Existing list")
-                for (placemark in app.placemarks){
-                    i("Entry: " + placemark.title + ", " + placemark.description)
+                for (recipe in app.recipes){
+                    i("Entry: " + recipe.title + ", " + recipe.description)
                 }
                 setResult(RESULT_OK)
                 finish()
@@ -59,13 +58,12 @@ class AssignmentActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.item_back -> {
-                val launcherIntent = Intent(this, PlacemarkListActivity::class.java)
+                val launcherIntent = Intent(this, RecipeListActivity::class.java)
                 getResult.launch(launcherIntent)
             }
         }
         return super.onOptionsItemSelected(item)
     }
 
-    private val getResult =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {}
+    private val getResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {}
 }

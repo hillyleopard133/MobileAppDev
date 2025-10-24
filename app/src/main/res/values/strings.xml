@@ -3,9 +3,9 @@
     <string name="window_text">Press the button below to receive a friendly greeting from Android.</string>
     <string name="button_label">Show Greeting</string>
     <string name="greeting_text">Greetings One and All from Android!</string>
-    <string name="button_addPlacemark">Add Placemark</string>
-    <string name="hint_placemarkTitle">Placemark Title</string>
-    <string name="hint_placemarkDescription">Placemark Description</string>
-    <string name="menu_addPlacemark">Add</string>
+    <string name="button_addRecipe">Add Recipe</string>
+    <string name="hint_recipeTitle">Recipe Title</string>
+    <string name="hint_recipeDescription">Recipe Description</string>
+    <string name="menu_addRecipe">Add</string>
 
 </resources>

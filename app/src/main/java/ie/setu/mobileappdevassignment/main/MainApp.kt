@@ -1,13 +1,13 @@
 package ie.setu.mobileappdevassignment.main
 
 import android.app.Application
-import ie.setu.mobileappdevassignment.models.PlacemarkModel
+import ie.setu.mobileappdevassignment.models.RecipeModel
 import timber.log.Timber
 import timber.log.Timber.i
 
 class MainApp : Application() {
 
-    val placemarks = ArrayList<PlacemarkModel>()
+    val recipes = ArrayList<RecipeModel>()
 
     override fun onCreate() {
         super.onCreate()

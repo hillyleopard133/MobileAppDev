@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MobileAppDevAssignment"
         tools:targetApi="34">
-        <activity android:name=".activities.PlacemarkListActivity"
+        <activity android:name=".activities.RecipeListActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,7 +23,7 @@
             <meta-data android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <activity android:name=".activities.AssignmentActivity">
+        <activity android:name=".activities.AddRecipeActivity">
             <meta-data android:name="android.app.lib_name"
                 android:value="" />
         </activity>
