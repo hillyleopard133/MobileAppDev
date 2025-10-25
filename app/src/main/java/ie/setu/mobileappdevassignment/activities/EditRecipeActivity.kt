@@ -75,6 +75,8 @@ class EditRecipeActivity : AppCompatActivity() {
             ingredient.unit = binding.ingredientUnit.selectedItem.toString()
             if (ingredient.name.isNotEmpty() && ingredient.amount != 0) {
                 recipe.ingredients.add(ingredient.copy())
+                binding.ingredientName.setText("")
+                binding.ingredientAmount.value = 0
                 app.saveRecipes()
                 (binding.recyclerView.adapter)?.notifyItemRangeChanged(0,recipe.ingredients.size)
             }
