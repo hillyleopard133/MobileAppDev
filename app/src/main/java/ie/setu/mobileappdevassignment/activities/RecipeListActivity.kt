@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
@@ -21,12 +23,24 @@ class RecipeListActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRecipeListBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         binding = ActivityRecipeListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.toolbar.title = title
         setSupportActionBar(binding.toolbar)
+
+        val filterSpinner: Spinner = findViewById(R.id.filterType)
+
+        ArrayAdapter.createFromResource(
+            this,
+            R.array.filter_array,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            filterSpinner.adapter = adapter
+        }
 
         app = application as MainApp
 
@@ -39,7 +53,22 @@ class RecipeListActivity : AppCompatActivity() {
             val searchRecipes = ArrayList<RecipeModel>()
             for(recipe in app.recipes){
                 if(recipe.title.toLowerCase().contains(searchWord.toLowerCase()) || recipe.description.toLowerCase().contains(searchWord.toLowerCase()) ){
-                    searchRecipes.add(recipe)
+                    val filterType = binding.filterType.selectedItem.toString()
+                    if(filterType == "None"){
+                        searchRecipes.add(recipe)
+                    }else if(filterType == "Vegetarian"){
+                        if(recipe.vegetarian){
+                            searchRecipes.add(recipe)
+                        }
+                    }else if(filterType == "Vegan"){
+                        if(recipe.vegan){
+                            searchRecipes.add(recipe)
+                        }
+                    }else if(filterType == "Gluten Free"){
+                        if(recipe.glutenFree){
+                            searchRecipes.add(recipe)
+                        }
+                    }
                 }
             }
             binding.recyclerView.adapter = RecipeAdapter(searchRecipes)

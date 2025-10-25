@@ -13,6 +13,7 @@
     <string name="hint_searchbar">Search</string>
     <string name="menu_addRecipe">Add</string>
     <string name="ingredients_title">Ingredients</string>
+    <string name="filter_text">Filter: </string>
     <string name="checkbox_vegan">Vegan</string>
     <string name="checkbox_vegetarian">Vegetarian</string>
     <string name="checkbox_glutenFree">Gluten Free</string>
@@ -24,6 +25,13 @@
         <item>tbsp</item>
         <item>tsp</item>
         <item>none</item>
+    </string-array>
+
+    <string-array name="filter_array">
+        <item>None</item>
+        <item>Vegetarian</item>
+        <item>Vegan</item>
+        <item>Gluten Free</item>
     </string-array>
 
 </resources>
