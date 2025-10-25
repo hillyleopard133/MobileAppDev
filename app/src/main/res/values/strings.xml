@@ -4,8 +4,21 @@
     <string name="button_label">Show Greeting</string>
     <string name="greeting_text">Greetings One and All from Android!</string>
     <string name="button_addRecipe">Add Recipe</string>
+    <string name="button_addIngredient">Add Ingredient</string>
     <string name="hint_recipeTitle">Recipe Title</string>
     <string name="hint_recipeDescription">Recipe Description</string>
+    <string name="hint_ingredientName">Ingredient Name</string>
+    <string name="hint_ingredientAmount">Amount</string>
     <string name="menu_addRecipe">Add</string>
+    <string name="ingredients_title">Ingredients</string>
+
+    <string-array name="units_array">
+        <item>g</item>
+        <item>ml</item>
+        <item>cups</item>
+        <item>tbsp</item>
+        <item>tsp</item>
+        <item>none</item>
+    </string-array>
 
 </resources>

@@ -50,6 +50,8 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
 
     implementation(libs.timber)
+    implementation(libs.androidx.fragment)
+    implementation(libs.androidx.legacy.support.v4)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

@@ -10,12 +10,19 @@ import ie.setu.mobileappdevassignment.models.RecipeModel
 import timber.log.Timber.i
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.recyclerview.widget.LinearLayoutManager
 import ie.setu.mobileappdevassignment.R
+import ie.setu.mobileappdevassignment.adapters.IngredientAdapter
+import ie.setu.mobileappdevassignment.adapters.RecipeAdapter
+import ie.setu.mobileappdevassignment.models.IngredientModel
 
 class AddRecipeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddRecipeBinding
     var recipe = RecipeModel()
+    var ingredient = IngredientModel()
 
     lateinit var app : MainApp
 
@@ -27,9 +34,24 @@ class AddRecipeActivity : AppCompatActivity() {
         binding.toolbarAdd.title = title
         setSupportActionBar(binding.toolbarAdd)
 
+        val unitSpinner: Spinner = findViewById(R.id.ingredientUnit)
+
+        ArrayAdapter.createFromResource(
+            this,
+            R.array.units_array,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            unitSpinner.adapter = adapter
+        }
+
         app = application as MainApp
 
-        binding.btnAdd.setOnClickListener() {
+        val layoutManager = LinearLayoutManager(this)
+        binding.recyclerView.layoutManager = layoutManager
+        binding.recyclerView.adapter = IngredientAdapter(recipe.ingredients)
+
+        binding.btnAddRecipe.setOnClickListener() {
             recipe.title = binding.recipeTitle.text.toString()
             recipe.description = binding.recipeDescription.text.toString()
             if (recipe.title.isNotEmpty() && recipe.description.isNotEmpty()) {
@@ -44,7 +66,22 @@ class AddRecipeActivity : AppCompatActivity() {
             }
             else {
                 Snackbar
-                    .make(it,"Please Enter a title and description", Snackbar.LENGTH_LONG)
+                    .make(it,"Please enter a title and description", Snackbar.LENGTH_LONG)
+                    .show()
+            }
+        }
+
+        binding.btnAddIngredient.setOnClickListener() {
+            ingredient.name = binding.ingredientName.text.toString()
+            ingredient.amount = binding.ingredientAmount.text.toString().toIntOrNull() ?: 0
+            ingredient.unit = binding.ingredientUnit.selectedItem.toString()
+            if (ingredient.name.isNotEmpty() && ingredient.amount != 0) {
+                recipe.ingredients.add(ingredient.copy())
+                (binding.recyclerView.adapter)?.notifyItemRangeChanged(0,recipe.ingredients.size)
+            }
+            else {
+                Snackbar
+                    .make(it,"Please enter a name and amount", Snackbar.LENGTH_LONG)
                     .show()
             }
         }

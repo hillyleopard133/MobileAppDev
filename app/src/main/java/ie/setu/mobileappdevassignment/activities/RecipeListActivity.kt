@@ -53,8 +53,7 @@ class RecipeListActivity : AppCompatActivity() {
             ActivityResultContracts.StartActivityForResult()
         ) {
             if (it.resultCode == Activity.RESULT_OK) {
-                (binding.recyclerView.adapter)?.
-                notifyItemRangeChanged(0,app.recipes.size)
+                (binding.recyclerView.adapter)?.notifyItemRangeChanged(0,app.recipes.size)
             }
         }
 
