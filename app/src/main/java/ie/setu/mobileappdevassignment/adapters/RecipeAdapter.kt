@@ -1,10 +1,13 @@
 package ie.setu.mobileappdevassignment.adapters
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import ie.setu.mobileappdevassignment.activities.EditRecipeActivity
 import ie.setu.mobileappdevassignment.databinding.CardRecipeBinding
-import ie.setu.mobileappdevassignment.models.IngredientModel
+import androidx.appcompat.app.AppCompatActivity
+import ie.setu.mobileappdevassignment.main.MainApp
 import ie.setu.mobileappdevassignment.models.RecipeModel
 
 class RecipeAdapter constructor(private var recipes: ArrayList<RecipeModel>) :
@@ -16,7 +19,6 @@ class RecipeAdapter constructor(private var recipes: ArrayList<RecipeModel>) :
 
         return MainHolder(binding, this)
     }
-
 
     override fun onBindViewHolder(holder: MainHolder, position: Int) {
         val recipe = recipes[holder.adapterPosition]
@@ -36,6 +38,12 @@ class RecipeAdapter constructor(private var recipes: ArrayList<RecipeModel>) :
                 recipes.removeAt(position)
                 adapter.notifyItemRemoved(position)
                 adapter.notifyItemRangeChanged(position, recipes.size)
+            }
+
+            binding.btnEditRecipe.setOnClickListener {
+                val launcherIntent = Intent(binding.root.context, EditRecipeActivity::class.java)
+                launcherIntent.putExtra("position", position)
+                binding.root.context.startActivity(launcherIntent)
             }
         }
     }
