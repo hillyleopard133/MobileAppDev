@@ -1,10 +1,13 @@
 package ie.setu.mobileappdevassignment.activities
 
 import android.content.Intent
+import android.content.res.Resources
 import android.os.Bundle
+import android.text.InputType
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ArrayAdapter
+import android.widget.EditText
 import android.widget.Spinner
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -53,11 +56,22 @@ class EditRecipeActivity : AppCompatActivity() {
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.adapter = IngredientAdapter(recipe.ingredients)
-        //(binding.recyclerView.adapter)?.notifyItemRangeChanged(0,app.recipes.size)
+
+        binding.ingredientAmount.minValue = 0
+        binding.ingredientAmount.maxValue = 1000
+        binding.ingredientAmount.value = 0
+
+        //Make it editable (this was from chatGPT)
+        val numberPickerEditText = binding.ingredientAmount.findViewById<EditText>(
+            Resources.getSystem().getIdentifier("numberpicker_input", "id", "android")
+        )
+        numberPickerEditText.isFocusable = true
+        numberPickerEditText.isFocusableInTouchMode = true
+        numberPickerEditText.inputType = InputType.TYPE_CLASS_NUMBER
 
         binding.btnAddIngredient.setOnClickListener() {
             ingredient.name = binding.ingredientName.text.toString()
-            ingredient.amount = binding.ingredientAmount.text.toString().toIntOrNull() ?: 0
+            ingredient.amount = binding.ingredientAmount.value
             ingredient.unit = binding.ingredientUnit.selectedItem.toString()
             if (ingredient.name.isNotEmpty() && ingredient.amount != 0) {
                 recipe.ingredients.add(ingredient.copy())
