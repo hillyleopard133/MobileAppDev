@@ -70,11 +70,7 @@ class AddRecipeActivity : AppCompatActivity() {
             recipe.description = binding.recipeDescription.text.toString()
             if (recipe.title.isNotEmpty() && recipe.description.isNotEmpty()) {
                 app.recipes.add(recipe.copy())
-                i("add Button Pressed: " + recipe.title + ", " + recipe.description)
-                i("Existing list")
-                for (recipe in app.recipes){
-                    i("Entry: " + recipe.title + ", " + recipe.description)
-                }
+                app.saveRecipes()
                 setResult(RESULT_OK)
                 finish()
             }

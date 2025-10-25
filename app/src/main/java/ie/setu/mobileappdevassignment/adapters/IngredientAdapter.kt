@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ie.setu.mobileappdevassignment.databinding.CardIngredientBinding
+import ie.setu.mobileappdevassignment.main.MainApp
 import ie.setu.mobileappdevassignment.models.IngredientModel
 
 class IngredientAdapter constructor(private var ingredients: ArrayList<IngredientModel>) :
@@ -36,6 +37,8 @@ class IngredientAdapter constructor(private var ingredients: ArrayList<Ingredien
 
             binding.btnDeleteIngredient.setOnClickListener {
                 ingredients.removeAt(position)
+                val app = binding.root.context.applicationContext as MainApp
+                app.saveRecipes()
                 adapter.notifyItemRemoved(position)
                 adapter.notifyItemRangeChanged(position, ingredients.size)
             }

@@ -75,6 +75,7 @@ class EditRecipeActivity : AppCompatActivity() {
             ingredient.unit = binding.ingredientUnit.selectedItem.toString()
             if (ingredient.name.isNotEmpty() && ingredient.amount != 0) {
                 recipe.ingredients.add(ingredient.copy())
+                app.saveRecipes()
                 (binding.recyclerView.adapter)?.notifyItemRangeChanged(0,recipe.ingredients.size)
             }
             else {
@@ -88,6 +89,7 @@ class EditRecipeActivity : AppCompatActivity() {
             recipe.title = binding.recipeTitle.text.toString()
             recipe.description = binding.recipeDescription.text.toString()
             if (recipe.title.isNotEmpty() && recipe.description.isNotEmpty()) {
+                app.saveRecipes()
                 val launcherIntent = Intent(this, RecipeListActivity::class.java)
                 getResult.launch(launcherIntent)
             }
