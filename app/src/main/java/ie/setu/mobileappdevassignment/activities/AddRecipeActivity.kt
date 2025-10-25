@@ -16,7 +16,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
 import ie.setu.mobileappdevassignment.R
 import ie.setu.mobileappdevassignment.adapters.IngredientAdapter
-import ie.setu.mobileappdevassignment.adapters.RecipeAdapter
 import ie.setu.mobileappdevassignment.models.IngredientModel
 
 class AddRecipeActivity : AppCompatActivity() {

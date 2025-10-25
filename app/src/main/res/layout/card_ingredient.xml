@@ -21,12 +21,21 @@
             tools:text="Ingredient" />
 
         <TextView
-            android:id="@+id/ingredientAmount"
+            android:id="@+id/ingredientUnit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="30sp"
             android:layout_alignParentRight="true"
-            tools:text="Amount" />
+            tools:text="g" />
+
+        <TextView
+            android:id="@+id/ingredientAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:layout_toLeftOf="@id/ingredientUnit"
+            android:layout_marginEnd="8dp"
+            tools:text="200" />
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

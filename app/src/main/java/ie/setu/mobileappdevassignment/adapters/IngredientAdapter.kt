@@ -29,6 +29,11 @@ class IngredientAdapter constructor(private var ingredients: List<IngredientMode
         fun bind(ingredient: IngredientModel) {
             binding.ingredientName.text = ingredient.name
             binding.ingredientAmount.text = ingredient.amount.toString()
+            if(ingredient.unit == "none"){
+                binding.ingredientUnit.text = ""
+            }else{
+                binding.ingredientUnit.text = ingredient.unit
+            }
         }
     }
 }
