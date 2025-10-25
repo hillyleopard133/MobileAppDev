@@ -68,6 +68,33 @@
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="16sp" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <CheckBox
+                    android:id="@+id/checkboxVegetarian"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/checkbox_vegetarian"
+                    android:padding="8dp"/>
+
+                <CheckBox
+                    android:id="@+id/checkboxVegan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/checkbox_vegan"
+                    android:padding="8dp"/>
+
+                <CheckBox
+                    android:id="@+id/checkboxGlutenFree"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/checkbox_glutenFree"
+                    android:padding="8dp"/>
+            </LinearLayout>
+
+
                 <TextView
                     android:id="@+id/textView"
                     android:layout_width="match_parent"

@@ -52,6 +52,9 @@ class EditRecipeActivity : AppCompatActivity() {
         recipe = app.recipes[position]
         binding.recipeTitle.setText(recipe.title)
         binding.recipeDescription.setText(recipe.description)
+        binding.checkboxVegetarian.isChecked = recipe.vegetarian
+        binding.checkboxVegan.isChecked = recipe.vegan
+        binding.checkboxGlutenFree.isChecked = recipe.glutenFree
 
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
@@ -90,6 +93,9 @@ class EditRecipeActivity : AppCompatActivity() {
         binding.btnDone.setOnClickListener() {
             recipe.title = binding.recipeTitle.text.toString()
             recipe.description = binding.recipeDescription.text.toString()
+            recipe.vegetarian = binding.checkboxVegetarian.isChecked
+            recipe.vegan = binding.checkboxVegan.isChecked
+            recipe.glutenFree= binding.checkboxGlutenFree.isChecked
             if (recipe.title.isNotEmpty() && recipe.description.isNotEmpty()) {
                 app.saveRecipes()
                 val launcherIntent = Intent(this, RecipeListActivity::class.java)

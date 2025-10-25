@@ -68,6 +68,9 @@ class AddRecipeActivity : AppCompatActivity() {
         binding.btnAddRecipe.setOnClickListener() {
             recipe.title = binding.recipeTitle.text.toString()
             recipe.description = binding.recipeDescription.text.toString()
+            recipe.vegetarian = binding.checkboxVegetarian.isChecked
+            recipe.vegan = binding.checkboxVegan.isChecked
+            recipe.glutenFree= binding.checkboxGlutenFree.isChecked
             if (recipe.title.isNotEmpty() && recipe.description.isNotEmpty()) {
                 app.recipes.add(recipe.copy())
                 app.saveRecipes()
