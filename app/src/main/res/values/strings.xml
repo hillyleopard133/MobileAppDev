@@ -10,6 +10,7 @@
     <string name="hint_recipeDescription">Recipe Description</string>
     <string name="hint_ingredientName">Ingredient Name</string>
     <string name="hint_ingredientAmount">Amount</string>
+    <string name="hint_searchbar">Search</string>
     <string name="menu_addRecipe">Add</string>
     <string name="ingredients_title">Ingredients</string>
 

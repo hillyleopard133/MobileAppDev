@@ -8,10 +8,12 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import ie.setu.mobileappdevassignment.R
 import ie.setu.mobileappdevassignment.adapters.RecipeAdapter
 import ie.setu.mobileappdevassignment.databinding.ActivityRecipeListBinding
 import ie.setu.mobileappdevassignment.main.MainApp
+import ie.setu.mobileappdevassignment.models.RecipeModel
 
 class RecipeListActivity : AppCompatActivity() {
 
@@ -31,6 +33,17 @@ class RecipeListActivity : AppCompatActivity() {
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.adapter = RecipeAdapter(app.recipes)
+
+        binding.btnSearch.setOnClickListener() {
+            val searchWord = binding.searchbar.text.toString()
+            val searchRecipes = ArrayList<RecipeModel>()
+            for(recipe in app.recipes){
+                if(recipe.title.toLowerCase().contains(searchWord.toLowerCase()) || recipe.description.toLowerCase().contains(searchWord.toLowerCase()) ){
+                    searchRecipes.add(recipe)
+                }
+            }
+            binding.recyclerView.adapter = RecipeAdapter(searchRecipes)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
