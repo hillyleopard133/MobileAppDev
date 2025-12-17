@@ -4,13 +4,16 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import ie.setu.mobileappdevassignment.activities.EditRecipeActivity
 import ie.setu.mobileappdevassignment.databinding.CardRecipeBinding
 import androidx.appcompat.app.AppCompatActivity
 import ie.setu.mobileappdevassignment.main.MainApp
 import ie.setu.mobileappdevassignment.models.RecipeModel
 
-class RecipeAdapter constructor(private var recipes: ArrayList<RecipeModel>) :
+interface RecipeListener {
+    fun onRecipeClick(recipe: RecipeModel)
+}
+
+class RecipeAdapter constructor(private var recipes: ArrayList<RecipeModel>, private val listener: RecipeListener) :
     RecyclerView.Adapter<RecipeAdapter.MainHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {
@@ -22,7 +25,7 @@ class RecipeAdapter constructor(private var recipes: ArrayList<RecipeModel>) :
 
     override fun onBindViewHolder(holder: MainHolder, position: Int) {
         val recipe = recipes[holder.adapterPosition]
-        holder.bind(recipe, recipes)
+        holder.bind(recipe, recipes, listener)
     }
 
     override fun getItemCount(): Int = recipes.size
@@ -30,9 +33,11 @@ class RecipeAdapter constructor(private var recipes: ArrayList<RecipeModel>) :
     class MainHolder(private val binding : CardRecipeBinding, private val adapter: RecipeAdapter) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(recipe: RecipeModel, recipes: ArrayList<RecipeModel>) {
+        fun bind(recipe: RecipeModel, recipes: ArrayList<RecipeModel>, listener: RecipeListener) {
             binding.recipeTitle.text = recipe.title
             binding.description.text = recipe.description
+
+            binding.root.setOnClickListener { listener.onRecipeClick(recipe) }
 
             binding.btnDeleteRecipe.setOnClickListener {
                 recipes.removeAt(position)
@@ -40,12 +45,6 @@ class RecipeAdapter constructor(private var recipes: ArrayList<RecipeModel>) :
                 app.saveRecipes()
                 adapter.notifyItemRemoved(position)
                 adapter.notifyItemRangeChanged(position, recipes.size)
-            }
-
-            binding.btnEditRecipe.setOnClickListener {
-                val launcherIntent = Intent(binding.root.context, EditRecipeActivity::class.java)
-                launcherIntent.putExtra("position", position)
-                binding.root.context.startActivity(launcherIntent)
             }
         }
     }

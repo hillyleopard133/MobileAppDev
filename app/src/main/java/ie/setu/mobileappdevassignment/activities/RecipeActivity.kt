@@ -4,25 +4,25 @@ import android.content.Intent
 import android.content.res.Resources
 import android.os.Bundle
 import android.text.InputType
+import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.snackbar.Snackbar
+import ie.setu.mobileappdevassignment.main.MainApp
+import ie.setu.mobileappdevassignment.models.RecipeModel
+import timber.log.Timber.i
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Spinner
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.snackbar.Snackbar
 import ie.setu.mobileappdevassignment.R
 import ie.setu.mobileappdevassignment.adapters.IngredientAdapter
-import ie.setu.mobileappdevassignment.databinding.ActivityEditRecipeBinding
-import ie.setu.mobileappdevassignment.main.MainApp
+import ie.setu.mobileappdevassignment.databinding.ActivityRecipeBinding
 import ie.setu.mobileappdevassignment.models.IngredientModel
-import ie.setu.mobileappdevassignment.models.RecipeModel
-import timber.log.Timber.i
 
-class EditRecipeActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityEditRecipeBinding
+class RecipeActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityRecipeBinding
     var recipe = RecipeModel()
     var ingredient = IngredientModel()
 
@@ -30,7 +30,7 @@ class EditRecipeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityEditRecipeBinding.inflate(layoutInflater)
+        binding = ActivityRecipeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.toolbarAdd.title = title
@@ -48,13 +48,6 @@ class EditRecipeActivity : AppCompatActivity() {
         }
 
         app = application as MainApp
-        val position = intent.getIntExtra("position", -1)
-        recipe = app.recipes[position]
-        binding.recipeTitle.setText(recipe.title)
-        binding.recipeDescription.setText(recipe.description)
-        binding.checkboxVegetarian.isChecked = recipe.vegetarian
-        binding.checkboxVegan.isChecked = recipe.vegan
-        binding.checkboxGlutenFree.isChecked = recipe.glutenFree
 
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
@@ -72,6 +65,46 @@ class EditRecipeActivity : AppCompatActivity() {
         numberPickerEditText.isFocusableInTouchMode = true
         numberPickerEditText.inputType = InputType.TYPE_CLASS_NUMBER
 
+        var edit = false
+
+        if (intent.hasExtra("recipe_edit")) {
+            edit = true
+            recipe = intent.extras?.getParcelable("recipe_edit")!!
+
+            binding.recipeTitle.setText(recipe.title)
+            binding.recipeDescription.setText(recipe.description)
+            binding.checkboxVegetarian.isChecked = recipe.vegetarian
+            binding.checkboxVegan.isChecked = recipe.vegan
+            binding.checkboxGlutenFree.isChecked = recipe.glutenFree
+
+            //TODO load ingredients
+
+            binding.btnAddRecipe.setText(R.string.save_recipe)
+        }
+
+        binding.btnAddRecipe.setOnClickListener() {
+            recipe.title = binding.recipeTitle.text.toString()
+            recipe.description = binding.recipeDescription.text.toString()
+            recipe.vegetarian = binding.checkboxVegetarian.isChecked
+            recipe.vegan = binding.checkboxVegan.isChecked
+            recipe.glutenFree= binding.checkboxGlutenFree.isChecked
+            if (recipe.title.isNotEmpty() && recipe.description.isNotEmpty()) {
+                if(edit){
+                    app.recipes.update(recipe.copy())
+                }else{
+                    app.recipes.create(recipe.copy())
+                }
+                app.saveRecipes()
+                setResult(RESULT_OK)
+                finish()
+            }
+            else {
+                Snackbar
+                    .make(it,R.string.enter_recipe_title, Snackbar.LENGTH_LONG)
+                    .show()
+            }
+        }
+
         binding.btnAddIngredient.setOnClickListener() {
             ingredient.name = binding.ingredientName.text.toString()
             ingredient.amount = binding.ingredientAmount.value
@@ -85,29 +118,10 @@ class EditRecipeActivity : AppCompatActivity() {
             }
             else {
                 Snackbar
-                    .make(it,"Please enter a name and amount", Snackbar.LENGTH_LONG)
+                    .make(it,R.string.enter_ingredient_name_and_amount, Snackbar.LENGTH_LONG)
                     .show()
             }
         }
-
-        binding.btnDone.setOnClickListener() {
-            recipe.title = binding.recipeTitle.text.toString()
-            recipe.description = binding.recipeDescription.text.toString()
-            recipe.vegetarian = binding.checkboxVegetarian.isChecked
-            recipe.vegan = binding.checkboxVegan.isChecked
-            recipe.glutenFree= binding.checkboxGlutenFree.isChecked
-            if (recipe.title.isNotEmpty() && recipe.description.isNotEmpty()) {
-                app.saveRecipes()
-                val launcherIntent = Intent(this, RecipeListActivity::class.java)
-                getResult.launch(launcherIntent)
-            }
-            else {
-                Snackbar
-                    .make(it,"Please enter a title and description", Snackbar.LENGTH_LONG)
-                    .show()
-            }
-        }
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

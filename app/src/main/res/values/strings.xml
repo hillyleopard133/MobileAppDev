@@ -17,6 +17,9 @@
     <string name="checkbox_vegan">Vegan</string>
     <string name="checkbox_vegetarian">Vegetarian</string>
     <string name="checkbox_glutenFree">Gluten Free</string>
+    <string name="enter_recipe_title"> Please enter a Recipe Title and Description </string>
+    <string name="enter_ingredient_name_and_amount"> Please enter a Name and Amount for Ingredient </string>
+    <string name="save_recipe"> Save Recipe </string>
 
     <string-array name="units_array">
         <item>g</item>

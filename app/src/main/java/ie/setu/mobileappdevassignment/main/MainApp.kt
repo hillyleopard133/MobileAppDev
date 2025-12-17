@@ -5,20 +5,23 @@ import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import ie.setu.mobileappdevassignment.models.RecipeModel
+import ie.setu.mobileappdevassignment.models.RecipeMemStore
 import timber.log.Timber
 import timber.log.Timber.i
 import java.io.File
 
 class MainApp : Application() {
 
-    val recipes = ArrayList<RecipeModel>()
+    //val recipes = ArrayList<RecipeModel>()
+    val recipes = RecipeMemStore()
+
     private val fileName = "recipes.json"
 
     override fun onCreate() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
 
-        recipes.addAll(loadRecipes(this))
+        recipes.recipes.addAll(loadRecipes(this))
     }
 
     // Save recipes list to internal storage
@@ -26,7 +29,7 @@ class MainApp : Application() {
         val file = File(filesDir, fileName)
         try {
             val gson = Gson()
-            val jsonString = gson.toJson(recipes)
+            val jsonString = gson.toJson(recipes.recipes)
             file.writeText(jsonString)
             i("Recipes saved successfully")
         } catch (e: Exception) {

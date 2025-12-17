@@ -13,11 +13,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import ie.setu.mobileappdevassignment.R
 import ie.setu.mobileappdevassignment.adapters.RecipeAdapter
+import ie.setu.mobileappdevassignment.adapters.RecipeListener
 import ie.setu.mobileappdevassignment.databinding.ActivityRecipeListBinding
 import ie.setu.mobileappdevassignment.main.MainApp
 import ie.setu.mobileappdevassignment.models.RecipeModel
+import java.util.Locale
+import java.util.Locale.getDefault
 
-class RecipeListActivity : AppCompatActivity() {
+class RecipeListActivity : AppCompatActivity(), RecipeListener {
 
     lateinit var app: MainApp
     private lateinit var binding: ActivityRecipeListBinding
@@ -46,13 +49,15 @@ class RecipeListActivity : AppCompatActivity() {
 
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
-        binding.recyclerView.adapter = RecipeAdapter(app.recipes)
+        //binding.recyclerView.adapter = RecipeAdapter(app.recipes)
+        binding.recyclerView.adapter = RecipeAdapter(app.recipes.findAll(), this)
 
         binding.btnSearch.setOnClickListener() {
             val searchWord = binding.searchbar.text.toString()
             val searchRecipes = ArrayList<RecipeModel>()
-            for(recipe in app.recipes){
-                if(recipe.title.toLowerCase().contains(searchWord.toLowerCase()) || recipe.description.toLowerCase().contains(searchWord.toLowerCase()) ){
+            for(recipe in app.recipes.findAll()){
+                if(recipe.title.lowercase(getDefault()).contains(searchWord.lowercase(getDefault())) ||
+                    recipe.description.lowercase(getDefault()).contains(searchWord.lowercase(getDefault())) ){
                     val filterType = binding.filterType.selectedItem.toString()
                     if(filterType == "None"){
                         searchRecipes.add(recipe)
@@ -71,7 +76,7 @@ class RecipeListActivity : AppCompatActivity() {
                     }
                 }
             }
-            binding.recyclerView.adapter = RecipeAdapter(searchRecipes)
+            binding.recyclerView.adapter = RecipeAdapter(searchRecipes, this)
         }
     }
 
@@ -83,19 +88,36 @@ class RecipeListActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.item_add -> {
-                val launcherIntent = Intent(this, AddRecipeActivity::class.java)
+                val launcherIntent = Intent(this, RecipeActivity::class.java)
                 getResult.launch(launcherIntent)
             }
         }
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onRecipeClick(recipe: RecipeModel) {
+        val launcherIntent = Intent(this, RecipeActivity::class.java)
+        launcherIntent.putExtra("recipe_edit", recipe)
+        getClickResult.launch(launcherIntent)
+    }
+
+    private val getClickResult =
+        registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) {
+            if (it.resultCode == RESULT_OK) {
+                (binding.recyclerView.adapter)?.
+                notifyItemRangeChanged(0,app.recipes.findAll().size)
+            }
+        }
+
+
     private val getResult =
         registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) {
             if (it.resultCode == Activity.RESULT_OK) {
-                (binding.recyclerView.adapter)?.notifyItemRangeChanged(0,app.recipes.size)
+                (binding.recyclerView.adapter)?.notifyItemRangeChanged(0,app.recipes.findAll().size)
             }
         }
 

@@ -23,11 +23,7 @@
             <meta-data android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <activity android:name=".activities.AddRecipeActivity">
-            <meta-data android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity android:name=".activities.EditRecipeActivity">
+        <activity android:name=".activities.RecipeActivity">
             <meta-data android:name="android.app.lib_name"
                 android:value="" />
         </activity>

@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.AddRecipeActivity">
+    tools:context=".activities.RecipeActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -68,31 +68,31 @@
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="16sp" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <CheckBox
+                    android:id="@+id/checkboxVegetarian"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <CheckBox
-                        android:id="@+id/checkboxVegetarian"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/checkbox_vegetarian"
-                        android:padding="8dp"/>
+                    android:text="@string/checkbox_vegetarian"
+                    android:padding="8dp"/>
 
-                    <CheckBox
-                        android:id="@+id/checkboxVegan"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/checkbox_vegan"
-                        android:padding="8dp"/>
+                <CheckBox
+                    android:id="@+id/checkboxVegan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/checkbox_vegan"
+                    android:padding="8dp"/>
 
-                    <CheckBox
-                        android:id="@+id/checkboxGlutenFree"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/checkbox_glutenFree"
-                        android:padding="8dp"/>
-                </LinearLayout>
+                <CheckBox
+                    android:id="@+id/checkboxGlutenFree"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/checkbox_glutenFree"
+                    android:padding="8dp"/>
+            </LinearLayout>
 
                 <TextView
                     android:id="@+id/textView"
@@ -160,17 +160,16 @@
                     android:textSize="20sp" />
 
                 <Button
-                    android:id="@+id/btnDone"
+                    android:id="@+id/btnAddRecipe"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
                     android:background="@color/colorAccent"
                     android:padding="8dp"
                     android:stateListAnimator="@null"
-                    android:text="@string/button_done"
+                    android:text="@string/button_addRecipe"
                     android:textColor="@color/colorPrimary"
                     android:textSize="20sp" />
-
 
             </LinearLayout>
         </ScrollView>

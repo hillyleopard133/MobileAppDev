@@ -12,6 +12,7 @@ constraintlayout = "2.2.1"
 timber = "1.5.1"
 fragment = "1.8.9"
 legacySupportV4 = "1.0.0"
+kotlinPlugin = "2.2.10"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -29,4 +30,5 @@ androidx-legacy-support-v4 = { group = "androidx.legacy", name = "legacy-support
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlinPlugin" }
 
