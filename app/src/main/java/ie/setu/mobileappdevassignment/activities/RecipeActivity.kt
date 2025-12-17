@@ -33,6 +33,13 @@ class RecipeActivity : AppCompatActivity() {
     lateinit var app : MainApp
 
     private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
+    private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
+
+    private fun registerMapCallback() {
+        mapIntentLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { i("Map Loaded") }
+    }
 
     private fun registerImagePickerCallback() {
         imageIntentLauncher =
@@ -61,6 +68,7 @@ class RecipeActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         registerImagePickerCallback()
+        registerMapCallback()
 
         binding.toolbarAdd.title = title
         setSupportActionBar(binding.toolbarAdd)
@@ -163,6 +171,13 @@ class RecipeActivity : AppCompatActivity() {
         binding.chooseImage.setOnClickListener {
             showImagePicker(imageIntentLauncher)
         }
+
+        binding.recipeLocation.setOnClickListener {
+            i("Set Location Pressed")
+            val launcherIntent = Intent(this, MapActivity::class.java)
+            mapIntentLauncher.launch(launcherIntent)
+        }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
