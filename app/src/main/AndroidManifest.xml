@@ -17,7 +17,7 @@
         android:theme="@style/Theme.MobileAppDevAssignment"
         tools:targetApi="34">
         <activity
-            android:name=".activities.RecipeMapsView"
+            android:name=".views.map.RecipeMapView"
             android:exported="false"
             android:theme="@style/Theme.MobileAppDevAssignment" />
 
@@ -32,7 +32,8 @@
 
         <activity
             android:name=".views.recipelist.RecipeListView"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.MobileAppDevAssignment.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

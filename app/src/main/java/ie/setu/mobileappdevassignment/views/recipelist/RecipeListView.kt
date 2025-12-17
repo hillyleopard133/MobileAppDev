@@ -21,6 +21,7 @@ class RecipeListView : AppCompatActivity(), RecipeListener {
     lateinit var presenter: RecipeListPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.Theme_MobileAppDevAssignment)
         super.onCreate(savedInstanceState)
         binding = ActivityRecipeListBinding.inflate(layoutInflater)
         setContentView(binding.root)
