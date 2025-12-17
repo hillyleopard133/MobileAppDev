@@ -77,7 +77,7 @@ class RecipeActivity : AppCompatActivity() {
             binding.checkboxVegan.isChecked = recipe.vegan
             binding.checkboxGlutenFree.isChecked = recipe.glutenFree
 
-            //TODO load ingredients
+            binding.recyclerView.adapter = IngredientAdapter(recipe.ingredients)
 
             binding.btnAddRecipe.setText(R.string.save_recipe)
         }
