@@ -16,6 +16,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MobileAppDevAssignment"
         tools:targetApi="34">
+        <activity
+            android:name=".activities.RecipeMapsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.MobileAppDevAssignment" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

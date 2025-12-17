@@ -40,7 +40,6 @@ class RecipeAdapter constructor(private var recipes: ArrayList<RecipeModel>, pri
             Picasso.get().load(recipe.image).fit().centerCrop().into(binding.imageIcon)
 
             binding.root.setOnClickListener { listener.onRecipeClick(recipe, adapterPosition) }
-            
         }
     }
 }

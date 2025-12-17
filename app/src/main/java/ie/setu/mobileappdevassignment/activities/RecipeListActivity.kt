@@ -26,6 +26,12 @@ class RecipeListActivity : AppCompatActivity(), RecipeListener {
     private lateinit var binding: ActivityRecipeListBinding
     private var position: Int = 0
 
+    private val mapIntentLauncher =
+        registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        )    { }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -91,6 +97,10 @@ class RecipeListActivity : AppCompatActivity(), RecipeListener {
             R.id.item_add -> {
                 val launcherIntent = Intent(this, RecipeActivity::class.java)
                 getResult.launch(launcherIntent)
+            }
+            R.id.item_map -> {
+                val launcherIntent = Intent(this, RecipeMapsActivity::class.java)
+                mapIntentLauncher.launch(launcherIntent)
             }
         }
         return super.onOptionsItemSelected(item)
