@@ -17,7 +17,7 @@
         android:theme="@style/Theme.MobileAppDevAssignment"
         tools:targetApi="34">
         <activity
-            android:name=".activities.RecipeMapsActivity"
+            android:name=".activities.RecipeMapsView"
             android:exported="false"
             android:theme="@style/Theme.MobileAppDevAssignment" />
 
@@ -26,11 +26,12 @@
             android:value="@string/MAPS_API_KEY" />
 
         <activity
-            android:name=".activities.MapActivity"
+            android:name=".views.editlocation.EditLocationView"
             android:exported="false"
             android:label="@string/title_activity_map" />
+
         <activity
-            android:name=".activities.RecipeListActivity"
+            android:name=".views.recipelist.RecipeListView"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,11 +43,13 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <activity android:name=".activities.RecipeActivity">
+
+        <activity android:name=".views.recipe.RecipeView">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
     </application>
 
 </manifest>
