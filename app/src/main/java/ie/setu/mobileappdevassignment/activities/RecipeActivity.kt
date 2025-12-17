@@ -30,7 +30,6 @@ class RecipeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRecipeBinding
     var recipe = RecipeModel()
     var ingredient = IngredientModel()
-    var location = Location(52.245696, -7.139102, 15f)
 
     lateinit var app : MainApp
 
@@ -45,14 +44,18 @@ class RecipeActivity : AppCompatActivity() {
                     RESULT_OK -> {
                         if (result.data != null) {
                             i("Got Location ${result.data.toString()}")
-                            location = result.data!!.extras?.getParcelable("location")!!
+                            val location = result.data!!.extras?.getParcelable<Location>("location")!!
                             i("Location == $location")
+                            recipe.lat = location.lat
+                            recipe.lng = location.lng
+                            recipe.zoom = location.zoom
                         } // end of if
                     }
                     RESULT_CANCELED -> { } else -> { }
                 }
             }
     }
+
 
 
     private fun registerImagePickerCallback() {
@@ -153,7 +156,7 @@ class RecipeActivity : AppCompatActivity() {
                 }else{
                     app.recipes.create(recipe.copy())
                 }
-                app.saveRecipes()
+                //TODO app.saveRecipes()
                 setResult(RESULT_OK)
                 finish()
             }
@@ -172,7 +175,7 @@ class RecipeActivity : AppCompatActivity() {
                 recipe.ingredients.add(ingredient.copy())
                 binding.ingredientName.setText("")
                 binding.ingredientAmount.value = 0
-                app.saveRecipes()
+                //TODO app.saveRecipes()
                 (binding.recyclerView.adapter)?.notifyItemRangeChanged(0,recipe.ingredients.size)
             }
             else {
@@ -187,6 +190,12 @@ class RecipeActivity : AppCompatActivity() {
         }
 
         binding.recipeLocation.setOnClickListener {
+            val location = Location(52.245696, -7.139102, 15f)
+            if (recipe.zoom != 0f) {
+                location.lat =  recipe.lat
+                location.lng = recipe.lng
+                location.zoom = recipe.zoom
+            }
             val launcherIntent = Intent(this, MapActivity::class.java)
                 .putExtra("location", location)
             mapIntentLauncher.launch(launcherIntent)

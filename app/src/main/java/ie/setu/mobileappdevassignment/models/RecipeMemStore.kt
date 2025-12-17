@@ -28,6 +28,9 @@ class RecipeMemStore : RecipeStore{
             foundRecipe.glutenFree = recipe.glutenFree
             foundRecipe.ingredients = recipe.ingredients
             foundRecipe.image = recipe.image
+            foundRecipe.lat = recipe.lat
+            foundRecipe.lng = recipe.lng
+            foundRecipe.zoom = recipe.zoom
         }
     }
 }

@@ -6,25 +6,26 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import ie.setu.mobileappdevassignment.models.RecipeModel
 import ie.setu.mobileappdevassignment.models.RecipeMemStore
+import ie.setu.mobileappdevassignment.models.RecipeStore
 import timber.log.Timber
 import timber.log.Timber.i
 import java.io.File
 
 class MainApp : Application() {
-
-    //val recipes = ArrayList<RecipeModel>()
-    val recipes = RecipeMemStore()
+    lateinit var recipes: RecipeStore
 
     private val fileName = "recipes.json"
 
     override fun onCreate() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
+        recipes = RecipeMemStore()
+        i("Recipes started")
 
-        recipes.recipes.addAll(loadRecipes(this))
+        //recipes.addAll(loadRecipes(this))
     }
 
-    //TODO images URI cant be saved like this
+    /*
 
     // Save recipes list to internal storage
     fun saveRecipes() {
@@ -54,4 +55,6 @@ class MainApp : Application() {
             emptyList()
         }
     }
+
+     */
 }
