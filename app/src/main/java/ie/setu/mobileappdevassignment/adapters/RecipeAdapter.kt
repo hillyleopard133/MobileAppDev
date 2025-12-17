@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ie.setu.mobileappdevassignment.databinding.CardRecipeBinding
 import androidx.appcompat.app.AppCompatActivity
+import com.squareup.picasso.Picasso
 import ie.setu.mobileappdevassignment.main.MainApp
 import ie.setu.mobileappdevassignment.models.RecipeModel
 
@@ -36,6 +37,7 @@ class RecipeAdapter constructor(private var recipes: ArrayList<RecipeModel>, pri
         fun bind(recipe: RecipeModel, recipes: ArrayList<RecipeModel>, listener: RecipeListener) {
             binding.recipeTitle.text = recipe.title
             binding.description.text = recipe.description
+            Picasso.get().load(recipe.image).fit().centerCrop().into(binding.imageIcon)
 
             binding.root.setOnClickListener { listener.onRecipeClick(recipe) }
 

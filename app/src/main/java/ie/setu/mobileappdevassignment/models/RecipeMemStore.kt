@@ -27,6 +27,7 @@ class RecipeMemStore : RecipeStore{
             foundRecipe.vegan = recipe.vegan
             foundRecipe.glutenFree = recipe.glutenFree
             foundRecipe.ingredients = recipe.ingredients
+            foundRecipe.image = recipe.image
         }
     }
 }

@@ -24,6 +24,8 @@ class MainApp : Application() {
         recipes.recipes.addAll(loadRecipes(this))
     }
 
+    //TODO images URI cant be saved like this
+
     // Save recipes list to internal storage
     fun saveRecipes() {
         val file = File(filesDir, fileName)

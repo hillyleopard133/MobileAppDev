@@ -2,6 +2,7 @@ package ie.setu.mobileappdevassignment.activities
 
 import android.content.Intent
 import android.content.res.Resources
+import android.net.Uri
 import android.os.Bundle
 import android.text.InputType
 import androidx.appcompat.app.AppCompatActivity
@@ -45,6 +46,7 @@ class RecipeActivity : AppCompatActivity() {
                             Picasso.get()
                                 .load(recipe.image)
                                 .into(binding.recipeImage)
+                            binding.chooseImage.setText(R.string.change_recipe_image)
                         } // end of if
                     }
                     RESULT_CANCELED -> { } else -> { }
@@ -107,6 +109,10 @@ class RecipeActivity : AppCompatActivity() {
             Picasso.get()
                 .load(recipe.image)
                 .into(binding.recipeImage)
+
+            if (recipe.image != Uri.EMPTY) {
+                binding.chooseImage.setText(R.string.change_recipe_image)
+            }
 
             binding.recyclerView.adapter = IngredientAdapter(recipe.ingredients)
 
