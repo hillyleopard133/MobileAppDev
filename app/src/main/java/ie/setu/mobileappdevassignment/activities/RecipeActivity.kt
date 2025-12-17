@@ -14,11 +14,13 @@ import android.view.MenuItem
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Spinner
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
 import ie.setu.mobileappdevassignment.R
 import ie.setu.mobileappdevassignment.adapters.IngredientAdapter
 import ie.setu.mobileappdevassignment.databinding.ActivityRecipeBinding
+import ie.setu.mobileappdevassignment.helpers.showImagePicker
 import ie.setu.mobileappdevassignment.models.IngredientModel
 
 class RecipeActivity : AppCompatActivity() {
@@ -28,10 +30,29 @@ class RecipeActivity : AppCompatActivity() {
 
     lateinit var app : MainApp
 
+    private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
+
+    private fun registerImagePickerCallback() {
+        imageIntentLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { result ->
+                when(result.resultCode){
+                    RESULT_OK -> {
+                        if (result.data != null) {
+                            i("Got Result ${result.data!!.data}")
+                        } // end of if
+                    }
+                    RESULT_CANCELED -> { } else -> { }
+                }
+            }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRecipeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        registerImagePickerCallback()
 
         binding.toolbarAdd.title = title
         setSupportActionBar(binding.toolbarAdd)
@@ -121,6 +142,10 @@ class RecipeActivity : AppCompatActivity() {
                     .make(it,R.string.enter_ingredient_name_and_amount, Snackbar.LENGTH_LONG)
                     .show()
             }
+        }
+
+        binding.chooseImage.setOnClickListener {
+            showImagePicker(imageIntentLauncher)
         }
     }
 
