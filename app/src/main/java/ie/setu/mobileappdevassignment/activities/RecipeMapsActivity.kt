@@ -5,12 +5,14 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.squareup.picasso.Picasso
 import ie.setu.mobileappdevassignment.databinding.ActivityRecipeMapsBinding
 import ie.setu.mobileappdevassignment.databinding.ContentRecipeMapsBinding
 import ie.setu.mobileappdevassignment.main.MainApp
 
-class RecipeMapsActivity : AppCompatActivity() {
+class RecipeMapsActivity : AppCompatActivity(), GoogleMap.OnMarkerClickListener {
 
     private lateinit var binding: ActivityRecipeMapsBinding
     private lateinit var contentBinding: ContentRecipeMapsBinding
@@ -35,12 +37,24 @@ class RecipeMapsActivity : AppCompatActivity() {
         }
     }
 
+    override fun onMarkerClick(marker: Marker): Boolean {
+        val tag = marker.tag as Long
+        val recipe = app.recipes.findById(tag)
+        contentBinding.currentTitle.text = recipe!!.title
+        contentBinding.currentDescription.text = recipe.description
+        Picasso.get().load(recipe.image).into(contentBinding.currentImage)
+        return false
+
+        return false
+    }
+
     private fun configureMap() {
         map.uiSettings.isZoomControlsEnabled = true
         app.recipes.findAll().forEach {
             val loc = LatLng(it.lat, it.lng)
             val options = MarkerOptions().title(it.title).position(loc)
             map.addMarker(options)?.tag = it.id
+            map.setOnMarkerClickListener(this)
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, it.zoom))
         }
     }

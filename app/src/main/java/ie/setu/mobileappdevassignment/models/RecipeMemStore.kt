@@ -38,4 +38,9 @@ class RecipeMemStore : RecipeStore{
         recipes.remove(recipe)
     }
 
+    override fun findById(id:Long) : RecipeModel? {
+        val foundRecipe: RecipeModel? = recipes.find { it.id == id }
+        return foundRecipe
+    }
+
 }

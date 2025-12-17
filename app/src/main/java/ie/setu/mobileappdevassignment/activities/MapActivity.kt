@@ -57,8 +57,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, location.zoom))
     }
 
-    override fun onMarkerDrag(p0: Marker) {
-        TODO("Not yet implemented")
+    override fun onMarkerDrag(marker: Marker) {
     }
 
     override fun onMarkerDragEnd(marker: Marker) {
@@ -68,7 +67,6 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,
     }
 
     override fun onMarkerDragStart(p0: Marker) {
-        TODO("Not yet implemented")
     }
 
     override fun onMarkerClick(marker: Marker): Boolean {
