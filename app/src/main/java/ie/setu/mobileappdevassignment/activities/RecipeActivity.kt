@@ -24,11 +24,13 @@ import ie.setu.mobileappdevassignment.adapters.IngredientAdapter
 import ie.setu.mobileappdevassignment.databinding.ActivityRecipeBinding
 import ie.setu.mobileappdevassignment.helpers.showImagePicker
 import ie.setu.mobileappdevassignment.models.IngredientModel
+import ie.setu.mobileappdevassignment.models.Location
 
 class RecipeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRecipeBinding
     var recipe = RecipeModel()
     var ingredient = IngredientModel()
+    var location = Location(52.245696, -7.139102, 15f)
 
     lateinit var app : MainApp
 
@@ -38,8 +40,20 @@ class RecipeActivity : AppCompatActivity() {
     private fun registerMapCallback() {
         mapIntentLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult())
-            { i("Map Loaded") }
+            { result ->
+                when (result.resultCode) {
+                    RESULT_OK -> {
+                        if (result.data != null) {
+                            i("Got Location ${result.data.toString()}")
+                            location = result.data!!.extras?.getParcelable("location")!!
+                            i("Location == $location")
+                        } // end of if
+                    }
+                    RESULT_CANCELED -> { } else -> { }
+                }
+            }
     }
+
 
     private fun registerImagePickerCallback() {
         imageIntentLauncher =
@@ -173,8 +187,8 @@ class RecipeActivity : AppCompatActivity() {
         }
 
         binding.recipeLocation.setOnClickListener {
-            i("Set Location Pressed")
             val launcherIntent = Intent(this, MapActivity::class.java)
+                .putExtra("location", location)
             mapIntentLauncher.launch(launcherIntent)
         }
 

@@ -14,3 +14,8 @@ data class RecipeModel(
     var vegetarian: Boolean = false,
     var vegan: Boolean = false,
     var glutenFree: Boolean = false): Parcelable
+
+@Parcelize
+data class Location(var lat: Double = 0.0,
+                    var lng: Double = 0.0,
+                    var zoom: Float = 0f) : Parcelable
