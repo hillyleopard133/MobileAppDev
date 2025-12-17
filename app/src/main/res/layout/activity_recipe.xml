@@ -17,7 +17,7 @@
             android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorAccent"
+            android:background="?attr/colorAccent"
             android:fitsSystemWindows="true"
             app:elevation="0dip"
             app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
@@ -26,7 +26,7 @@
                 android:id="@+id/toolbarAdd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:titleTextColor="@color/colorPrimary" />
+                app:titleTextColor="?attr/colorPrimaryVariant" />
         </com.google.android.material.appbar.AppBarLayout>
 
         <ScrollView
@@ -65,11 +65,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="16dp"
-                        android:background="@color/colorAccent"
+                        android:background="?attr/colorPrimary"
                         android:importantForAccessibility="no"
                         android:padding="8dp"
                         android:text="@string/button_addImage"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="?attr/colorPrimaryVariant"
                         android:textSize="16sp"
                         tools:ignore="VisualLintButtonSize" />
 
@@ -91,7 +91,7 @@
                     android:maxLength="25"
                     android:maxLines="1"
                     android:padding="8dp"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="?attr/colorPrimaryVariant"
                     android:textSize="16sp" />
 
                 <EditText
@@ -105,7 +105,7 @@
                     android:maxLength="50"
                     android:maxLines="1"
                     android:padding="8dp"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="?attr/colorPrimaryVariant"
                     android:textSize="16sp" />
 
                 <Button
@@ -113,11 +113,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
-                    android:background="@color/colorAccent"
+                    android:background="?attr/colorPrimary"
                     android:padding="8dp"
                     android:stateListAnimator="@null"
                     android:text="@string/button_location"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="?attr/colorPrimaryVariant"
                     android:textSize="16sp"/>
 
 
@@ -159,7 +159,7 @@
                     android:layout_margin="8dp"
                     android:maxLines="1"
                     android:padding="8dp"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="?attr/colorPrimaryVariant"
                     android:textSize="24sp"
                     android:text="@string/ingredients_title" />
 
@@ -182,7 +182,7 @@
                     android:maxLength="35"
                     android:maxLines="1"
                     android:padding="8dp"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="?attr/colorPrimaryVariant"
                     android:textSize="16sp" />
 
                 <LinearLayout
@@ -210,11 +210,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
-                    android:background="@color/colorAccent"
+                    android:background="?attr/colorPrimary"
                     android:padding="8dp"
                     android:stateListAnimator="@null"
                     android:text="@string/button_addIngredient"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="?attr/colorPrimaryVariant"
                     android:textSize="20sp" />
 
                 <Button
@@ -222,11 +222,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
-                    android:background="@color/colorAccent"
+                    android:background="?attr/colorPrimary"
                     android:padding="8dp"
                     android:stateListAnimator="@null"
                     android:text="@string/button_addRecipe"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="?attr/colorPrimaryVariant"
                     android:textSize="20sp" />
 
             </LinearLayout>
