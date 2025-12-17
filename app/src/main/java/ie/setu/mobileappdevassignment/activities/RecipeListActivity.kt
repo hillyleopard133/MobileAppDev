@@ -24,6 +24,7 @@ class RecipeListActivity : AppCompatActivity(), RecipeListener {
 
     lateinit var app: MainApp
     private lateinit var binding: ActivityRecipeListBinding
+    private var position: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -95,9 +96,10 @@ class RecipeListActivity : AppCompatActivity(), RecipeListener {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onRecipeClick(recipe: RecipeModel) {
+    override fun onRecipeClick(recipe: RecipeModel, pos : Int) {
         val launcherIntent = Intent(this, RecipeActivity::class.java)
         launcherIntent.putExtra("recipe_edit", recipe)
+        position = pos
         getClickResult.launch(launcherIntent)
     }
 
@@ -108,6 +110,9 @@ class RecipeListActivity : AppCompatActivity(), RecipeListener {
             if (it.resultCode == RESULT_OK) {
                 (binding.recyclerView.adapter)?.
                 notifyItemRangeChanged(0,app.recipes.findAll().size)
+            }
+            else{
+                if (it.resultCode == 99)     (binding.recyclerView.adapter)?.notifyItemRemoved(position)
             }
         }
 

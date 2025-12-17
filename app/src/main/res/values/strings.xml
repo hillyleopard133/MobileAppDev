@@ -21,6 +21,7 @@
     <string name="change_recipe_image">Change image</string>
     <string name="button_location">Set Location</string>
     <string name="title_activity_map">MapActivity</string>
+    <string name="menu_deleteRecipe">Delete</string>
 
     <string-array name="units_array">
         <item>g</item>

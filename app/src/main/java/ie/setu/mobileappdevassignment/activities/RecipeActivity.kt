@@ -31,6 +31,7 @@ class RecipeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRecipeBinding
     var recipe = RecipeModel()
     var ingredient = IngredientModel()
+    var edit = false
 
     lateinit var app : MainApp
 
@@ -120,8 +121,6 @@ class RecipeActivity : AppCompatActivity() {
         numberPickerEditText.isFocusableInTouchMode = true
         numberPickerEditText.inputType = InputType.TYPE_CLASS_NUMBER
 
-        var edit = false
-
         if (intent.hasExtra("recipe_edit")) {
             edit = true
             recipe = intent.extras?.getParcelable("recipe_edit")!!
@@ -208,18 +207,22 @@ class RecipeActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_back, menu)
+        if (edit) menu.getItem(0).isVisible = true
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.item_back -> {
-                val launcherIntent = Intent(this, RecipeListActivity::class.java)
-                getResult.launch(launcherIntent)
-            }
+            R.id.item_delete -> {
+                setResult(99)
+                app.recipes.delete(recipe)
+                finish()
+            }        R.id.item_back -> { finish() }
         }
         return super.onOptionsItemSelected(item)
     }
+
+
 
     private val getResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {}
 }

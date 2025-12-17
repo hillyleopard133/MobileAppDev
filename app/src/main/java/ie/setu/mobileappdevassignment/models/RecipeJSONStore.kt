@@ -59,6 +59,11 @@ class RecipeJSONStore(private val context: Context) : RecipeStore {
         serialize()
     }
 
+    override fun delete(recipe: RecipeModel) {
+        recipes.remove(recipe)
+        serialize()
+    }
+
     private fun serialize() {
         val jsonString = gsonBuilder.toJson(recipes, listType)
         write(context, JSON_FILE, jsonString)

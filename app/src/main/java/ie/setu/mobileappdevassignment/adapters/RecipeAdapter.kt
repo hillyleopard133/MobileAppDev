@@ -11,7 +11,7 @@ import ie.setu.mobileappdevassignment.main.MainApp
 import ie.setu.mobileappdevassignment.models.RecipeModel
 
 interface RecipeListener {
-    fun onRecipeClick(recipe: RecipeModel)
+    fun onRecipeClick(recipe: RecipeModel, position : Int)
 }
 
 class RecipeAdapter constructor(private var recipes: ArrayList<RecipeModel>, private val listener: RecipeListener) :
@@ -26,7 +26,7 @@ class RecipeAdapter constructor(private var recipes: ArrayList<RecipeModel>, pri
 
     override fun onBindViewHolder(holder: MainHolder, position: Int) {
         val recipe = recipes[holder.adapterPosition]
-        holder.bind(recipe, recipes, listener)
+        holder.bind(recipe, listener)
     }
 
     override fun getItemCount(): Int = recipes.size
@@ -34,19 +34,13 @@ class RecipeAdapter constructor(private var recipes: ArrayList<RecipeModel>, pri
     class MainHolder(private val binding : CardRecipeBinding, private val adapter: RecipeAdapter) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(recipe: RecipeModel, recipes: ArrayList<RecipeModel>, listener: RecipeListener) {
+        fun bind(recipe: RecipeModel, listener: RecipeListener) {
             binding.recipeTitle.text = recipe.title
             binding.description.text = recipe.description
             Picasso.get().load(recipe.image).fit().centerCrop().into(binding.imageIcon)
 
-            binding.root.setOnClickListener { listener.onRecipeClick(recipe) }
-
-            binding.btnDeleteRecipe.setOnClickListener {
-                recipes.removeAt(position)
-                val app = binding.root.context.applicationContext as MainApp
-                adapter.notifyItemRemoved(position)
-                adapter.notifyItemRangeChanged(position, recipes.size)
-            }
+            binding.root.setOnClickListener { listener.onRecipeClick(recipe, adapterPosition) }
+            
         }
     }
 }

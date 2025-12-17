@@ -33,4 +33,9 @@ class RecipeMemStore : RecipeStore{
             foundRecipe.zoom = recipe.zoom
         }
     }
+
+    override fun delete(recipe: RecipeModel) {
+        recipes.remove(recipe)
+    }
+
 }
