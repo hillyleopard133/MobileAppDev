@@ -38,7 +38,6 @@ class IngredientAdapter constructor(private var ingredients: ArrayList<Ingredien
             binding.btnDeleteIngredient.setOnClickListener {
                 ingredients.removeAt(position)
                 val app = binding.root.context.applicationContext as MainApp
-                app.saveRecipes()
                 adapter.notifyItemRemoved(position)
                 adapter.notifyItemRangeChanged(position, ingredients.size)
             }
