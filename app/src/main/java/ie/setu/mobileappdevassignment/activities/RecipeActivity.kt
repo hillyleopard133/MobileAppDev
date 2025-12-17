@@ -17,6 +17,7 @@ import android.widget.Spinner
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.squareup.picasso.Picasso
 import ie.setu.mobileappdevassignment.R
 import ie.setu.mobileappdevassignment.adapters.IngredientAdapter
 import ie.setu.mobileappdevassignment.databinding.ActivityRecipeBinding
@@ -40,12 +41,17 @@ class RecipeActivity : AppCompatActivity() {
                     RESULT_OK -> {
                         if (result.data != null) {
                             i("Got Result ${result.data!!.data}")
+                            recipe.image = result.data!!.data!!
+                            Picasso.get()
+                                .load(recipe.image)
+                                .into(binding.recipeImage)
                         } // end of if
                     }
                     RESULT_CANCELED -> { } else -> { }
                 }
             }
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -97,6 +103,10 @@ class RecipeActivity : AppCompatActivity() {
             binding.checkboxVegetarian.isChecked = recipe.vegetarian
             binding.checkboxVegan.isChecked = recipe.vegan
             binding.checkboxGlutenFree.isChecked = recipe.glutenFree
+
+            Picasso.get()
+                .load(recipe.image)
+                .into(binding.recipeImage)
 
             binding.recyclerView.adapter = IngredientAdapter(recipe.ingredients)
 
